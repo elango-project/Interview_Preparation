@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Students</title>
+</head>
+<body>
+
+<h2>All Students</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody id="studentTable"></tbody>
+</table>
+
+<script>
+    fetch("http://localhost:8080/students")
+        .then(response => response.json())
+        .then(data => {
+            let table = document.getElementById("studentTable");
+
+            data.forEach(student => {
+                let row = table.insertRow();
+
+                row.insertCell(0).innerText = student.id;
+                row.insertCell(1).innerText = student.name;
+                row.insertCell(2).innerText = student.department;
+                row.insertCell(3).innerText = student.email;
+            });
+        });
+</script>
+
+</body>
+</html>
