@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Real Estate Reality Check</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f5; margin: 0; padding: 2rem; color: #18181b; }
+        .container { max-width: 900px; margin: auto; }
+        .header { text-align: center; margin-bottom: 2rem; }
+        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        h1 { font-size: 1.5rem; margin-top: 0; color: #1e3a8a; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; }
+        h3 { color: #4b5563; }
+        .trust-score { font-size: 2rem; font-weight: bold; }
+        .risk { color: #dc2626; font-weight: bold; background: #fee2e2; padding: 0.75rem; border-radius: 4px; margin-top: 1rem; border-left: 4px solid #dc2626; }
+        .cost-breakdown { background: #f9fafb; padding: 1.5rem; border-radius: 4px; margin-top: 1rem; border: 1px solid #e5e7eb; }
+        .cost-item { display: flex; justify-content: space-between; margin-bottom: 0.75rem; font-size: 1.1rem; }
+        .total-cost { font-size: 1.3rem; font-weight: bold; border-top: 2px solid #d1d5db; padding-top: 0.75rem; color: #111827; }
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .grid-container { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>Property Discovery & Trust Analysis</h2>
+        <p>Real math. Real risks. No hidden fees.</p>
+    </div>
+
+    <div id="property-container">
+        <p>Loading properties...</p>
+    </div>
+</div>
+
+<script>
+    async function loadProperties() {
+        try {
+            const response = await fetch('/api/properties');
+            if (!response.ok) throw new Error("Network response was not ok");
+            const propertiesList = await response.json();
+
+            const container = document.getElementById('property-container');
+            container.innerHTML = '';
+
+            propertiesList.forEach(data => {
+                const prop = data.details;
+                const analysis = data.analysis;
+
+                const scoreColor = analysis.trustScore < 80 ? '#dc2626' : '#16a34a';
+                const riskDisplay = analysis.riskWarning !== "None" ? 'block' : 'none';
+
+                const cardHtml = `
+                    <div class="card">
+                        <h1>${prop.address}</h1>
+                        <p style="font-size: 1.2rem; font-weight: bold;">Asking Price: $${prop.currentPrice.toLocaleString()}</p>
+
+                        <div class="grid-container">
+                            <div class="cost-breakdown">
+                                <h3>True Monthly Cost</h3>
+                                <p style="font-size: 0.9rem; color: #6b7280; margin-top: -10px;">Assumes 20% Down, 6.5% Rate</p>
+                                <div class="cost-item"><span>Base Mortgage:</span> $${analysis.baseMortgage.toLocaleString()}</div>
+                                <div class="cost-item"><span>Property Tax (Est):</span> $${Math.round(prop.annualPropertyTax / 12).toLocaleString()}</div>
+                                <div class="cost-item"><span>HOA Fee:</span> $${prop.monthlyHoaFee.toLocaleString()}</div>
+                                <div class="cost-item total-cost"><span>Total Real Cost:</span> $${analysis.trueMonthlyCost.toLocaleString()} / mo</div>
+                            </div>
+
+                            <div>
+                                <h3>Trust Analysis</h3>
+                                <p>Trust Score: <span class="trust-score" style="color: ${scoreColor};">${analysis.trustScore}</span> / 100</p>
+                                <div class="risk" style="display: ${riskDisplay};">${analysis.riskWarning}</div>
+                                <p style="font-size: 0.9rem; color: #6b7280; margin-top: 1rem;">
+                                    *Score is penalized for rapid price hikes indicating flips, or listing keywords that hide structural issues.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        } catch (error) {
+            document.getElementById('property-container').innerHTML =
+                `<div class="risk" style="display:block;">Error loading data. Ensure the backend is running.</div>`;
+            console.error(error);
+        }
+    }
+
+    window.onload = loadProperties;
+</script>
+
+</body>
+</html>
