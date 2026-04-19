@@ -1,0 +1,132 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background: url("https://images.unsplash.com/photo-1560518883-ce09059eeffa") no-repeat center/cover;
+    color: #333;
+}
+
+/* overlay */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 20, 30, 0.75);
+    z-index: 0;
+}
+
+.app {
+    position: relative;
+    z-index: 1;
+    padding: 30px;
+}
+
+/* header */
+.header {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.header p {
+    opacity: 0.7;
+}
+
+/* panel */
+.panel {
+    background: rgba(255,255,255,0.95);
+    max-width: 700px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.panel h2 {
+    margin-bottom: 15px;
+}
+
+/* inputs */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.panel input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* slider */
+.slider-box {
+    margin-top: 15px;
+}
+
+.slider-box label {
+    font-size: 14px;
+}
+
+/* button */
+button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #2c7be5;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #1a5fd0;
+}
+
+/* results */
+.results {
+    margin-top: 30px;
+}
+
+/* card */
+.card {
+    background: white;
+    max-width: 700px;
+    margin: 15px auto;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* scores */
+.score {
+    font-weight: bold;
+}
+
+.green { color: #28a745; }
+.orange { color: #ff9800; }
+.red { color: #dc3545; }
+
+/* insights */
+ul {
+    margin-top: 10px;
+    padding-left: 18px;
+    font-size: 14px;
+}
