@@ -1,3 +1,0 @@
-INSERT INTO property (address, current_price, last_sold_price, months_since_last_sale, monthly_hoa_fee, annual_property_tax, red_flag_keywords) VALUES ('101 Texas Suburb Way, TX', 450000, 320000, 5, 200, 8500, 'sold as-is, needs TLC');
-INSERT INTO property (address, current_price, last_sold_price, months_since_last_sale, monthly_hoa_fee, annual_property_tax, red_flag_keywords) VALUES ('202 Quiet Ohio Lane, OH', 280000, 260000, 48, 50, 4200, '');
-INSERT INTO property (address, current_price, last_sold_price, months_since_last_sale, monthly_hoa_fee, annual_property_tax, red_flag_keywords) VALUES ('303 Miami Condo, FL', 550000, 500000, 24, 800, 9100, 'special assessment pending');
