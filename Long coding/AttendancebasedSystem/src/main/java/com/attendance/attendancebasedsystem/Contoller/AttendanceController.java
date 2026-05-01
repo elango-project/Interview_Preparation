@@ -8,5 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AttendanceController {
     @Autowired
     private AttendanceService service;
+    
+    @PostMapping
+    public AttendenceEntity addstudent(@RequestBody AttendenceEntity s){return service.SaveStudent(s);}
 
 }
