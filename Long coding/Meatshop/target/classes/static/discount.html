@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Discount</title>
+</head>
+<body>
+
+<form onsubmit="discount(event)">
+    Enter ID to Check discount
+    <input id="1" placeholder="Enter ID">
+    <button type="submit">Check Discount</button>
+</form>
+
+<p id="result"></p> 
+
+<script>
+    const disid = document.getElementById("1");
+
+    async function discount(event){
+        event.preventDefault();
+
+        let userid = Number(disid.value);
+
+        const disdata = await fetch(`http://localhost:8080/meat/discount/${userid}`, {
+            method: "GET"
+        });
+
+        let res = await disdata.text();
+
+        console.log(res);
+
+        document.getElementById("result").innerText = res;
+    }
+</script>
+
+</body>
+</html>

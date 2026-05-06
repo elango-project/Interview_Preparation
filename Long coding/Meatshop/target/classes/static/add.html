@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+</head>
+<body>
+<form onsubmit="createuser()">
+    <p>
+        Enter user name
+    </p>
+    <input id="1" placeholder="Name">
+    <p>
+        Enter User_Phone
+    </p>
+    <input id="2" placeholder="User_Phone">
+    <p>
+        Enter User_address
+    </p>
+    <input id="3" placeholder="User_address">
+    <p>
+        Enter User_email
+    </p>
+    <input id="4" placeholder="User_email">
+    <br>
+    <button type="submit"> Submit </button>
+</form>
+
+<script>
+    const name = document.getElementById("1");
+    const phone = document.getElementById("2");
+    const address = document.getElementById("3");
+    const email = document.getElementById("4");
+
+    async function createuser() {
+
+        let username = name.value;
+        let userphone = phone.value;
+        let useraddress = address.value;
+        let useremail = email.value;
+        const data = await fetch("http://localhost:8080/meat", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                "User_Name": username,
+                "User_Phone": userphone,
+                "User_address": useraddress,
+                "User_email": useremail
+            })
+        });
+        let res = await data.json();
+        console.log(res);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete User</title>
+</head>
+<body>
+<form onsubmit="deleteuser()">
+    Enter ID to delete
+    <input id="1" placeholder="Enter ID">
+    <button type="submit">DELETE</button>
+</form>
+
+    <script>
+        const uid=document.getElementById("1");
+        async function deleteuser() {
+            let userid = Number(uid.value);
+            const deletedata = await fetch(`http://localhost:8080/meat/${userid}`, {
+                method: "DELETE"
+            });
+            let res = await deletedata.json();
+            console.log(res);
+
+
+        }
+    </script>
+</body>
+</html>
